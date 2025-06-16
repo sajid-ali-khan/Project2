@@ -3,13 +3,51 @@
     x:Class="Project2.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Project2"
+    xmlns:views="clr-namespace:Project2.Views"
     Shell.FlyoutBehavior="Disabled"
     Title="Project2">
+    <Shell.TitleView>
+        <Grid ColumnDefinitions="Auto,*,Auto,Auto"
+              Padding="10, 5">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+            <Label
+                Text="Faculty App"
+                Style="{StaticResource SubHeadline}"
+                FontAttributes="Bold"
+                VerticalOptions="Center"
+                Grid.Column="0"></Label>
+
+            <ImageButton
+                Grid.Column="2"
+                Source="bell"
+                Scale="0.5"></ImageButton>
+
+            <ImageButton
+                Grid.Column="3"
+                Source="settings"
+                Scale="0.5"></ImageButton>
+        </Grid>
+    </Shell.TitleView>
+
+    <TabBar>
+        <ShellContent Title="Dashboard"
+                      Icon="calendar_black"
+                      ContentTemplate="{DataTemplate views:DashboardPage}" />
+        <ShellContent Title="Attendance"
+                      Icon="map"
+                      ContentTemplate="{DataTemplate views:AttendancePage}" />
+        <ShellContent Title="Leave"
+                      Icon="clock"
+                      ContentTemplate="{DataTemplate views:LeavePage}" />
+        <ShellContent Title="Approvals"
+                      Icon="task_done_black"
+                      ContentTemplate="{DataTemplate views:ApprovalsPage}" />
+        <ShellContent Title="Upload"
+                      Icon="docs"
+                      ContentTemplate="{DataTemplate views:UploadPage}" />
+        <ShellContent Title="Performance"
+                      Icon="graph"
+                      ContentTemplate="{DataTemplate views:PerformancePage}" />
+    </TabBar>
 
 </Shell>
