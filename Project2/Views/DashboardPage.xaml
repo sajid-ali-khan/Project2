@@ -2,11 +2,290 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Project2.Views.DashboardPage"
+             xmlns:vm="using:Project2.VIewModels"
+             xmlns:models="using:Project2.Models"
              Title="DashboardPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <ContentPage.BindingContext>
+        <vm:ClassViewModel/>
+    </ContentPage.BindingContext>
+
+    <ScrollView
+        Orientation="Vertical">
+        <VerticalStackLayout
+            Spacing="16"
+            Padding="16">
+            <Frame
+                BorderColor="Transparent"
+                Padding="30">
+                <VerticalStackLayout>
+                    <Label
+                        Text="Good Morning, Dr.Sarah!"
+                        FontSize="26"
+                        Padding="0, 0, 0, 16"
+                        TextColor="White"
+                        FontAttributes="Bold"></Label>
+                    <Label
+                        Text="You have 4 classes today and 3 pending approvals"
+                        TextColor="White"
+                        FontSize="16"></Label>
+                </VerticalStackLayout>
+                <Frame.Background>
+                    <LinearGradientBrush EndPoint="1,0">
+                        <GradientStop Color="#2563eb"
+                              Offset="0.1" />
+                        <GradientStop Color="#9333ea"
+                              Offset="1.0" />
+                    </LinearGradientBrush>
+                </Frame.Background>
+            </Frame>
+
+            <Grid
+                ColumnDefinitions="*, *"
+                HorizontalOptions="Fill"
+                ColumnSpacing="12">
+                <Frame
+                    Grid.Column="0"
+                    BorderColor="White"
+                    HasShadow="True"
+                    BackgroundColor="#3b82f6"
+                    Padding="5, 0, 0, 0">
+                    <Frame
+                        Padding="16"
+                        BorderColor="White"
+                        CornerRadius="6">
+                        <Grid
+                            RowDefinitions="*, *"
+                            ColumnSpacing="10"
+                            RowSpacing="6"
+                            ColumnDefinitions="*, Auto">
+                            <Label
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                FontSize="16"
+                                LineBreakMode="WordWrap"
+                                Text="Available Leaves"></Label>
+                            <Label
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                Text="12"
+                                FontSize="24"></Label>
+                            <Image
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Grid.Column="1"
+                                VerticalOptions="Center"
+                                Source="calendar_blue"></Image>
+                        </Grid>
+                    </Frame>
+                </Frame>
+
+                <Frame
+                    Grid.Column="1"
+                    BorderColor="White"
+                    BackgroundColor="#f97316"
+                    HasShadow="True"
+                    Padding="5, 0, 0, 0">
+                    <Frame
+                        Padding="16"
+                        BorderColor="White"
+                        CornerRadius="6">
+                        <Grid
+                            RowDefinitions="*, *"
+                            ColumnSpacing="10"
+                            RowSpacing="6"
+                            ColumnDefinitions="*, Auto">
+                            <Label
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                FontSize="16"
+                                LineBreakMode="WordWrap"
+                                Text="Pending Approvals"></Label>
+                            <Label
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                Text="3"
+                                FontSize="24"></Label>
+                            <Image
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Grid.Column="1"
+                                VerticalOptions="Center"
+                                Source="task_done_orange"></Image>
+                        </Grid>
+                    </Frame>
+                </Frame>
+            </Grid>
+
+
+            <Frame
+                HasShadow="True"
+                >
+                <Grid
+                    RowDefinitions="Auto, *"
+                    ColumnDefinitions="*, Auto"
+                    RowSpacing="10"
+                    >
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text="Today's Classes"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center"
+                        FontSize="18"></Label>
+                    <Button
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Text="View All"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        BackgroundColor="Transparent"></Button>
+
+
+                    <CollectionView
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Classes}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:ClassModel">
+                                <Frame
+                                    Margin="0, 10">
+                                    <Grid
+                                        RowDefinitions="*,*"
+                                        RowSpacing="8"
+                                        ColumnDefinitions="*, Auto">
+                                        <HorizontalStackLayout
+                                            Spacing="4"
+                                            Grid.Column="0"
+                                            Grid.Row="0">
+                                            <Label
+                                                Text="{Binding SubjectName}"
+                                                FontAttributes="Bold"
+                                                FontSize="16"></Label>
+                                            <Frame
+                                                Padding="10, 0"
+                                                >
+                                                <Label
+                                                    Text="{Binding YearAndSection}"></Label>
+                                            </Frame>
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout
+                                            Spacing="10"
+                                            Grid.Column="0"
+                                            Grid.Row="1">
+                                            <HorizontalStackLayout
+                                                Spacing="4">
+                                                <Image
+                                                    Source="clock_gray"
+                                                    HeightRequest="14"
+                                                    VerticalOptions="Center"></Image>
+                                                <Label
+                                                    Text="{Binding StartTime}"
+                                                    TextColor="DarkGray"></Label>
+                                            </HorizontalStackLayout>
+
+                                            <HorizontalStackLayout
+                                                Spacing="4">
+                                                <Image
+                                                    Source="location_gray"
+                                                    HeightRequest="14"
+                                                    VerticalOptions="Center"></Image>
+                                                <Label
+                                                    Text="{Binding ClassLocation}"
+                                                    TextColor="DarkGray"></Label>
+                                            </HorizontalStackLayout>
+
+                                        </HorizontalStackLayout>
+
+                                        <Frame
+                                            BorderColor="Transparent"
+                                            Grid.Column="1"
+                                            Grid.Row="0"
+                                            Grid.RowSpan="2"
+                                            VerticalOptions="Center"
+                                            Padding="6, 2"
+                                            BackgroundColor="{Binding BgColor}">
+                                            <Label
+                                                TextColor="{Binding TColor}"
+                                                Text="{Binding Status}"/>
+                                        </Frame>
+
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Frame>
+
+            <Frame
+                HasShadow="True">
+                <VerticalStackLayout
+                    Spacing="20">
+                    <Label
+                        Text="Quick Actions"
+                        FontAttributes="Bold"
+                        FontSize="20"></Label>
+
+                    <Grid
+                        ColumnDefinitions="*, *"
+                        RowDefinitions="*, *"
+                        RowSpacing="20"
+                        ColumnSpacing="20"
+                        >
+                        <Frame
+                            Grid.Column="0"
+                            Grid.Row="0">
+                            <VerticalStackLayout
+                                Spacing="8">
+                                <Image
+                                    Source="map"/>
+                                <Label
+                                    HorizontalTextAlignment="Center"
+                                    Text="Mark Attendance"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                        <Frame
+                            Grid.Column="1"
+                            Grid.Row="0">
+                            <VerticalStackLayout
+                                Spacing="8">
+                                <Image
+                                    Source="calendar_black"/>
+                                <Label
+                                    HorizontalTextAlignment="Center"
+                                    Text="Apply Leave"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                        <Frame
+                            Grid.Column="0"
+                            Grid.Row="1">
+                            <VerticalStackLayout
+                                Spacing="8">
+                                <Image
+                                    Source="task_done_black"/>
+                                <Label
+                                    HorizontalTextAlignment="Center"
+                                    Text="Approvals"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                        <Frame
+                            Grid.Column="2"
+                            Grid.Row="2">
+                            <VerticalStackLayout
+                                Spacing="8">
+                                <Image
+                                    Source="download"/>
+                                <Label
+                                    HorizontalTextAlignment="Center"
+                                    Text="Pay Slip"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

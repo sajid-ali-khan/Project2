@@ -3,9 +3,18 @@
     x:Class="Project2.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:views="clr-namespace:Project2.Views"
+    xmlns:views="clr-namespace:Project2.Views"   
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/components"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     Shell.FlyoutBehavior="Disabled"
+    BackgroundColor="White"
     Title="Project2">
+
+    <Shell.Behaviors>
+        <toolkit:StatusBarBehavior
+            StatusBarStyle="DarkContent"/>
+    </Shell.Behaviors>
+
     <Shell.TitleView>
         <Grid ColumnDefinitions="Auto,*,Auto,Auto"
               Padding="10, 5">
@@ -48,6 +57,7 @@
         <ShellContent Title="Performance"
                       Icon="graph"
                       ContentTemplate="{DataTemplate views:PerformancePage}" />
+        
     </TabBar>
 
 </Shell>
